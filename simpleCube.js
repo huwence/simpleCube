@@ -1,7 +1,7 @@
 /*
  *
  * SimpleCube JavaScript File
- * @author huwence (huwence@gmail.com)
+ * @autHor Huwence (Huwence@gmail.com)
  * @data 2013-01-02 15:14
  *
  * */
