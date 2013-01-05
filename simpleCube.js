@@ -1,7 +1,7 @@
 /*
  *
  * SimpleCube JavaScript File
- * @autHor Huwence (Huwence@gmail.com)
+ * @author huwence (Huwence@gmail.com)
  * @data 2013-01-02 15:14
  *
  * */
@@ -105,35 +105,42 @@
         return [pX, pY];
     }
 
-    function rotate (point, angle, axis){
+    function rotate (point, angles){
         if (!POINTS[point])
             return false;
+
+        if (!angles)
+            angles = {x: 0, y: 0, z: 0};
 
         var x = POINTS[point][0],
             y = POINTS[point][1],
             z = POINTS[point][2];
 
-        angle *= Math.PI / 180;
-        switch (axis){
-            case 'x':
-                x = x;
-                y = y * Math.cos(angle) - z * Math.sin(angle);
-                z = y * Math.sin(angle) + z * Math.cos(angle);
-                break;
-            case 'y':
-                y = y;
-                x = x * Math.cos(angle) - z * Math.sin(angle);
-                z = x * Math.sin(angle) + z * Math.cos(angle);
-                break;
-            case 'z':
-                z = z;
-                x = x * Math.cos(angle) - y * Math.sin(angle);
-                y = x * Math.sin(angle) + y * Math.cos(angle);
-                break;
-            default:
-                throw new Error('Rotate Function: unknown axis');
-                return false;
-                break;
+        //rotate X axis
+        if (angles.x){
+            var temp_y = y;
+
+            angles.x *= Math.PI / 180;
+            y = y * Math.cos(angles.x) - z * Math.sin(angles.x);
+            z = temp_y * Math.sin(angles.x) + z * Math.cos(angles.x);
+        }
+
+        //rotate Y axis
+        if (angles.y){
+            var temp_x = x;
+
+            angles.y *= Math.PI / 180;
+            x = x * Math.cos(angles.y) - z * Math.sin(angles.y);
+            z = temp_x * Math.sin(angles.y) + z * Math.cos(angles.y);
+        }
+
+        //rotate Z axis
+        if (angles.z){
+            var temp_x = x;
+
+            angles.z *= Math.PI / 180;
+            x = x * Math.cos(angles.z) - y * Math.sin(angles.z);
+            y = temp_x * Math.sin(angles.z) + y * Math.cos(angles.z);
         }
 
         CPOINTS[point][0] = x;
@@ -168,11 +175,8 @@
        var rotateAngle = 0;
 
        function autoRotate (){
-           for (var p in POINTS){
-               rotate(p, rotateAngle, 'x');
-               rotate(p, rotateAngle, 'y');
-               rotate(p, rotateAngle, 'z');
-           }
+           for (var p in POINTS)
+               rotate(p, {x: rotateAngle, y: rotateAngle, z: rotateAngle});
 
            rotateAngle += 5;
 
