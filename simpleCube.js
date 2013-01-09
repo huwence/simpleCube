@@ -48,25 +48,6 @@
                 };
     })();
 
-    var CPOINTS = _clone(POINTS);
-
-    function _clone(o){
-        if (!typeof o === 'object')
-            return;
-
-        var clone = {};
-        for (var i in o){
-            if (o.hasOwnProperty(i)){
-                if (typeof o[i] === 'object'){
-                   clone[i] = _clone(o[i]);
-                }else
-                   clone[i] = o[i]
-            }   
-        }
-
-        return clone;
-    }
-     
     function drawSurface (path, color){
         var result = RegPath.exec(path); 
 
@@ -91,12 +72,12 @@
 
     //return the projetion point in canvas
     function getProjectionPoint (point){
-        if (!CPOINTS[point])
+        if (!POINTS[point])
             return false;
 
-        var x = CPOINTS[point][0],
-            y = CPOINTS[point][1],
-            z = CPOINTS[point][2];
+        var x = POINTS[point][0],
+            y = POINTS[point][1],
+            z = POINTS[point][2];
 
         //projection point
         var pX = x * PERSPECTIVE / (Math.abs(CZ - z)) + WIDTH / 2,
@@ -143,9 +124,9 @@
             y = temp_x * Math.sin(angles.z) + y * Math.cos(angles.z);
         }
 
-        CPOINTS[point][0] = x;
-        CPOINTS[point][1] = y; 
-        CPOINTS[point][2] = z;
+        POINTS[point][0] = x;
+        POINTS[point][1] = y; 
+        POINTS[point][2] = z;
     }
 
     //we need to draw every surface on cube
@@ -172,21 +153,13 @@
        CONTEXT = canvas.getContext('2d');
        document.body.appendChild(canvas);
 
-       var rotateAngle = 0;
-
        function autoRotate (){
            for (var p in POINTS)
-               rotate(p, {x: rotateAngle, y: rotateAngle, z: rotateAngle});
-
-           rotateAngle += 1;
-
-           if (rotateAngle >= 360)
-               rotateAngle = 0;
+               rotate(p, {x: 1, y: 1, z: 1});
 
            draw();
-
            _requestFrame(autoRotate);
-           //setTimeout(autoRotate, 1000 / 60);
+           //setTimeout(autoRotate, 300);
        }
 
        autoRotate();
