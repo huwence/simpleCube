@@ -1,7 +1,7 @@
 /*
  *
  * SimpleCube JavaScript File
- * @author huwence (Huwence@gmail.com)
+ * @author huwence (huwence@gmail.com)
  * @data 2013-01-02 15:14
  *
  * */
@@ -43,7 +43,7 @@
                 window.mozRequestAnimationFrame    ||   
                 window.oRequestAnimationFrame      ||   
                 window.msRequestAnimationFrame     ||   
-                function( callback ){  
+                function (callback){  
                     window.setTimeout(callback, 1000/60);  
                 };
     })();
@@ -178,13 +178,15 @@
            for (var p in POINTS)
                rotate(p, {x: rotateAngle, y: rotateAngle, z: rotateAngle});
 
-           rotateAngle += 5;
+           rotateAngle += 1;
 
            if (rotateAngle >= 360)
                rotateAngle = 0;
 
            draw();
-           setTimeout(autoRotate, 100);
+
+           _requestFrame(autoRotate);
+           //setTimeout(autoRotate, 1000 / 60);
        }
 
        autoRotate();
