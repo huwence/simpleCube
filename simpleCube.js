@@ -2,7 +2,7 @@
  *
  * SimpleCube JavaScript File
  * @author huwence (huwence@gmail.com)
- * @data 2013-01-02 15:14
+ * @date 2013-01-02 15:14
  *
  * */
 
@@ -12,7 +12,7 @@
     var L = 200,   
         //the half of Length
         HL = L / 2, 
-        //There must define tHe eight points on cube, the three dimension to record the points
+        //There must define the eight points on cube, the three dimension to record the points
         POINTS = {
             A: [  HL,   HL,   HL], //A point
             B: [  HL, - HL,   HL], //B point
